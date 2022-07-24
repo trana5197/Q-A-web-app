@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}HOME PAGE{% endblock %}
+{% block content %}
+
+<form class="form" action="/home" method="post">
+    <label for="name">
+        <h1>ENTER YOUR NAME: </h1><input type="text" placeholder="NAME" name="name" value="{{ name }}">
+    </label><br><br>
+    <label for="type">
+        <h1>WHO ARE YOU? </h1>
+    </label><br><br>
+    <select name="select">
+        <option value="">SELECT ONE</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Student">Student</option>
+        <option value="Admin">Admin</option>
+    </select><br><br>
+    <input type="submit" value="SUBMIT">
+</form>
+
+{% endblock %}

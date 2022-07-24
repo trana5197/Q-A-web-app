@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %} STUDENT PAGE {% endblock %}
+{% block content %}
+
+<h1>NAME OF THE STUDENT: <i id="sName"></i></h1><br><br>
+<h1>NAME OF THE TEACHER: <i id="tName"></i></h1><br><br>
+<h5>TIME LEFT: <i id="qTime"></i></h5><br><br>
+
+<div class="form">
+    <h4>QUESTION FROM TEACHER: <i id="tQuestion"></i></h4><br><br>
+    <h4>STUDENT ANSWER: <i id="sAnswer"></i></h4><br><br>
+    <h4>MARKS GIVEN: <i id="tMarks"></i></h4><br><br>
+</div>
+
+<form action="/admin" class="form">
+    <label for="hint">
+        <h4>ENTER THE HINT TO GIVE: </h4><input type="text" name="hint">
+    </label><br><br>
+    <input type="submit" value="SUBMIT">
+
+</form>
+
+<h4>TOTAL QUESTIONS ASKED: <i id="totQues"></i></h4>
+<h4>TOTAL MARKS: <i id="totMarks"></i></h4>
+<h4>AVERAGE MARKS: <i id="avgMarks"></i></h4>
+
+<div class="class">
+    <h4>HINT GIVEN: <i id="hint"></i></h4>
+</div>
+
+
+
+
+
+
+
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root | tojson | safe }}
+    $(document).ready(function () {
+        function get_new_variable() {
+            $.getJSON(
+                $SCRIPT_ROOT + '/find',
+                function (data) {
+                    $('#sName').text(data.sName);
+                    $('#tName').text(data.tName);
+                    $('#tQuestion').text(data.tQuestion);
+                    $('#tMarks').text(data.tMarks);
+                    $('#sAnswer').text(data.sAnswer);
+                    $('#qTime').text(data.qTime);
+                    $('#totMarks').text(data.totMarks);
+                    $('#totQues').text(data.totQues);
+                    $('#avgMarks').text(data.avgMarks);
+                    $('#hint').text(data.hint);
+                }
+            );
+        }
+        get_new_variable();
+        window.setInterval(get_new_variable, 3000)
+    });
+
+
+
+</script>
+
+{% endblock %}
